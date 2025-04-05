@@ -1,8 +1,9 @@
 from django.db import models
+from mptt.models import TreeForeignKey
 
 
 class Product(models.Model):
-    category = models.ForeignKey(
+    category = TreeForeignKey(
         "Category", on_delete=models.SET_NULL,
         null=True, related_name="products")
     name = models.CharField(max_length=100)

@@ -86,8 +86,10 @@
                                 <div class="account__content">
                                     <ul class="account-list">
                                         <li class="title-item"><a href="javascript:void(0);">My Account</a></li>
-                                        <li><a href="#">Dasdboard</a></li>
-                                        <li><a href="#">Account Setting</a></li>
+                                        {% if not user.is_authenticated %}
+                                            <li><a href="/auth/register">Register</a></li>
+                                            <li><a href="/auth/login">Login</a></li>
+                                        {% endif %}
                                         <li><a href="shopping-cart.html">Orders</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="#">Shipping Address</a></li>
@@ -102,7 +104,9 @@
                                         <li><a href="vendor-store.html">View Store</a></li>
                                     </ul>
                                     <hr>
-                                    <a class="account-logout" href="#"><i class="icon-exit-left"></i>Log out</a>
+                                    {% if user.is_authenticated %}
+                                    <a class="account-logout" href="/auth/logout"><i class="icon-exit-left"></i>Log out</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </li>

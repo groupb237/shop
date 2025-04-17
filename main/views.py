@@ -22,3 +22,7 @@ def create_wishlist(request, product_id):
         product=product
     )
     return redirect("/")
+
+
+def list_wishlist(request):
+    return render(request, template_name="wishlist.html")

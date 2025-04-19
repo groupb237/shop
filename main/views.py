@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 import main.models as models
 
@@ -16,13 +16,23 @@ def category_list(request, category_id):
 
 def create_wishlist(request, product_id):
     user = request.user
-    product = models.Product.objects.get(pk=product_id)
-    models.Wishlist.objects.create(
-        user=user,
-        product=product
-    )
-    return redirect("/")
+    if not models.Wishlist.objects.filter(product_id=product_id).exists():
+        product = models.Product.objects.get(pk=product_id)
+        models.Wishlist.objects.create(
+            user=user,
+            product=product
+        )
+        return redirect("/")
+    else:
+        return redirect("/")
 
 
 def list_wishlist(request):
     return render(request, template_name="wishlist.html")
+
+
+def delete_wishlist(request, pk):
+    obj = get_object_or_404(models.Wishlist, pk=pk)
+    if request.user.is_authenticated:
+        obj.delete()
+        return redirect("/wishlist/")

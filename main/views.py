@@ -36,3 +36,10 @@ def delete_wishlist(request, pk):
     if request.user.is_authenticated:
         obj.delete()
         return redirect("/wishlist/")
+
+
+def product_detail(request, pk):
+    obj = get_object_or_404(models.Product, pk=pk)
+    return render(request,
+                  template_name="product-default.html",
+                  context={"object": obj})

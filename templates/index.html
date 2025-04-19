@@ -540,12 +540,12 @@
                         <div class="row m-0">
                             {% for p in products %}
                             <div class="col-6 col-md-4 col-lg-3 p-0">
-                                <div class="ps-product--standard"><a href="product-default.html"><img
+                                <div class="ps-product--standard"><a href="/products/detail/{{ p.id }}"><img
                                         class="ps-product__thumbnail" src="{{ p.main_image.url }}" alt="alt"/></a><a
                                         class="ps-product__expand" href="javascript:void(0);" data-toggle="modal"
                                         data-target="#popupQuickview"><i class="icon-expand"></i></a>
                                     <div class="ps-product__content">
-                                        <h5><a class="ps-product__name" href="product-default.html">{{ p.name }}</a></h5>
+                                        <h5><a class="ps-product__name" href="/products/detail/{{ p.id }}">{{ p.name }}</a></h5>
                                         <p class="ps-product__unit">{{ p.amount }}</p>
                                         <div class="ps-product__rating">
                                             <select class="rating-stars">

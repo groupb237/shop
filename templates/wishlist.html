@@ -53,17 +53,17 @@
                             <tr>
                                 <td>
                                     <div class="wishlist__trash">
-                                        <a href="">
+                                        <a href="/wishlist/delete/{{ item.id }}">
                                             <i class="icon-trash2"></i>
                                         </a>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="ps-product--vertical"><a href="product-default.html"><img
+                                    <div class="ps-product--vertical"><a href="/products/detail/{{ item.id }}"><img
                                             class="ps-product__thumbnail" src="{{ item.product.main_image.url }}"
                                             alt="alt"/></a>
                                         <div class="ps-product__content">
-                                            <h5><a class="ps-product__name" href="product-default.html">
+                                            <h5><a class="ps-product__name" href="/products/detail/{{ item.id }}">
                                                 {{ item.product.name }}
                                             </a></h5>
                                             <p class="ps-product__unit">{{ item.product.amount }}</p>

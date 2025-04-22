@@ -1,8 +1,8 @@
-from django.db import models
+from main.models.base import *
 from mptt.models import TreeForeignKey
 
 
-class Product(models.Model):
+class Product(BaseModel):
     category = TreeForeignKey(
         "Category", on_delete=models.SET_NULL,
         null=True, related_name="products")
@@ -10,7 +10,6 @@ class Product(models.Model):
     main_image = models.ImageField(upload_to="products/%Y-%m-%d")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
-    added_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
     amount = models.CharField(max_length=255)
     stock = models.PositiveIntegerField(default=0)
@@ -23,7 +22,7 @@ class Product(models.Model):
         ordering = ["-added_at"]
 
 
-class ProductImage(models.Model):
+class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to="products/images/%Y-%m-%d")
 

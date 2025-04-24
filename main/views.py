@@ -36,10 +36,17 @@ def delete_wishlist(request, pk):
     if request.user.is_authenticated:
         obj.delete()
         return redirect("/wishlist/")
+    return redirect("/wishlist/")
 
 
 def product_detail(request, pk):
     obj = get_object_or_404(models.Product, pk=pk)
+    if request.user.is_authenticated:
+        if not models.RecentView.objects.filter(user=request.user, product=obj).exists():
+            models.RecentView.objects.create(
+                user=request.user,
+                product=obj
+            )
     if request.POST:
         if request.user.is_authenticated:
             name = request.user.username

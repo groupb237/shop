@@ -66,3 +66,18 @@ def product_detail(request, pk):
     return render(request,
                   template_name="product-default.html",
                   context={"object": obj})
+
+
+def create_cart(request, product_id):
+    product = get_object_or_404(models.Product, pk=product_id)
+    if request.user.is_authenticated:
+        user = request.user
+        if models.Cart.objects.filter(user=user, is_active=True).exists():
+            cart = models.Cart.objects.filter(user=user, is_active=True)
+        else:
+            cart = models.Cart.objects.create(
+                user=user, total_sum=0
+            )
+
+
+

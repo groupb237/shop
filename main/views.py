@@ -104,3 +104,10 @@ def create_cart(request, product_id):
 def list_cart(request):
     cart = models.Cart.objects.filter(user=request.user, is_active=False).first()
     return render(request, "shopping-cart.html", context={"cart": cart})
+
+
+def delete_cart_item(request, item_id):
+    item = get_object_or_404(models.CartItem, pk=item_id)
+    if request.user.is_authenticated:
+        item.delete()
+    return redirect("/carts/list")

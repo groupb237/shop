@@ -15,6 +15,7 @@ product = [
 cart = [
     path("carts/list", views.list_cart),
     path("carts/create/<int:product_id>", views.create_cart),
+    path("carts/items/delete/<int:item_id>", views.delete_cart_item),
 ]
 
 urlpatterns = [

@@ -12,9 +12,14 @@ product = [
     path("products/detail/<int:pk>", views.product_detail)
 ]
 
+cart = [
+    path("carts/list", views.list_cart),
+    path("carts/create/<int:product_id>", views.create_cart),
+]
+
 urlpatterns = [
     path("", views.home),
     path("category/<int:category_id>", views.category_list),
 ]
 
-urlpatterns += wishlist + product
+urlpatterns += wishlist + product + cart

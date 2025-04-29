@@ -73,11 +73,34 @@ def create_cart(request, product_id):
     if request.user.is_authenticated:
         user = request.user
         if models.Cart.objects.filter(user=user, is_active=True).exists():
-            cart = models.Cart.objects.filter(user=user, is_active=True)
+            cart = models.Cart.objects.filter(user=user, is_active=True).last()
         else:
             cart = models.Cart.objects.create(
                 user=user, total_sum=0
             )
+        item = models.CartItem.objects.filter(cart=cart, product=product)
+        if item.exists():
+            item = item.first()
+            item.quantity += 1
+            item.save()
+        else:
+            models.CartItem.objects.create(
+                cart=cart,
+                product=product,
+                quantity=1,
+                price=product.price,
+                sum=product.price
+            )
+        total_sum = 0
+        for item in cart.items.all():
+            total_sum += item.sum
+
+        cart.total_sum = total_sum
+        cart.save()
+
+    return redirect("/")
 
 
-
+def list_cart(request):
+    cart = models.Cart.objects.filter(user=request.user, is_active=False).first()
+    return render(request, "shopping-cart.html", context={"cart": cart})

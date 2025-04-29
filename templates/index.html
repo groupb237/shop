@@ -572,9 +572,10 @@
                                         </div>
                                         <div class="ps-product__total">Total: <span>$4.49</span>
                                         </div>
-                                        <button class="ps-product__addcart" data-toggle="modal"
-                                                data-target="#popupAddToCart"><i class="icon-cart"></i>Add to cart
-                                        </button>
+                                        <a href="/carts/create/{{ p.id }}" class="ps-product__addcart">
+                                            <i class="icon-cart"></i>
+                                            Add to cart
+                                        </a>
                                         <div class="ps-product__box"><a class="ps-product__wishlist"
                                                                         href="/create/wishlist/{{ p.id }}">Wishlist</a><a
                                                 class="ps-product__compare" href="wishlist.html">Compare</a></div>

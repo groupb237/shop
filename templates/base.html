@@ -314,8 +314,13 @@
                     <button class="button-icon icon-md"><i class="icon-repeat"></i></button>
                     <a class="button-icon icon-md" href="/wishlist/"><i class="icon-heart"></i><span
                             class="badge bg-warning">{{ user.wishlists.all.count }}</span></a>
-                    <div class="button-icon btn-cart-header"><i class="icon-cart icon-shop5"></i><span
-                            class="badge bg-warning">3</span>
+                    <div class="button-icon btn-cart-header">
+                        <a href="/carts/list">
+                             <i class="icon-cart icon-shop5"></i>
+                            {% for i in user.my_carts.all %}
+                                <span class="badge bg-warning">{{ i.items.count }}</span>
+                            {% endfor %}
+                        </a>
                         <div class="mini-cart">
                             <div class="mini-cart--content">
                                 <div class="mini-cart--overlay"></div>

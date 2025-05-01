@@ -1,3 +1,5 @@
+from idlelib.rpc import request_queue
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 import main.models as models
@@ -102,8 +104,10 @@ def create_cart(request, product_id):
 
 
 def list_cart(request):
-    cart = models.Cart.objects.filter(user=request.user, is_active=False).first()
-    return render(request, "shopping-cart.html", context={"cart": cart})
+    if request.user.is_authenticated:
+        cart = models.Cart.objects.filter(user=request.user, is_active=True).first()
+        return render(request, "shopping-cart.html", context={"cart": cart})
+    return redirect("/")
 
 
 def delete_cart_item(request, item_id):
@@ -111,3 +115,14 @@ def delete_cart_item(request, item_id):
     if request.user.is_authenticated:
         item.delete()
     return redirect("/carts/list")
+
+
+def delete_all_items(request):
+    if request.user.is_authenticated:
+        cart = models.Cart.objects.filter(user=request.user, is_active=True).first()
+        cart.items.all().delete()
+    return redirect("/carts/list")
+
+
+def checkout_list(request):
+    return render(request, template_name="checkout.html")

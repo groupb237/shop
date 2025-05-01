@@ -87,8 +87,8 @@
                                     <ul class="account-list">
                                         <li class="title-item"><a href="javascript:void(0);">My Account</a></li>
                                         {% if not user.is_authenticated %}
-                                            <li><a href="/auth/register">Register</a></li>
-                                            <li><a href="/auth/login">Login</a></li>
+                                        <li><a href="/auth/register">Register</a></li>
+                                        <li><a href="/auth/login">Login</a></li>
                                         {% endif %}
                                         <li><a href="shopping-cart.html">Orders</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
@@ -315,12 +315,14 @@
                     <a class="button-icon icon-md" href="/wishlist/"><i class="icon-heart"></i><span
                             class="badge bg-warning">{{ user.wishlists.all.count }}</span></a>
                     <div class="button-icon btn-cart-header">
+                        {% if user.is_authenticated %}
                         <a href="/carts/list">
-                             <i class="icon-cart icon-shop5"></i>
+                            <i class="icon-cart icon-shop5"></i>
                             {% for i in user.my_carts.all %}
-                                <span class="badge bg-warning">{{ i.items.count }}</span>
+                            <span class="badge bg-warning">{{ i.items.count }}</span>
                             {% endfor %}
                         </a>
+                        {% endif %}
                         <div class="mini-cart">
                             <div class="mini-cart--content">
                                 <div class="mini-cart--overlay"></div>
@@ -810,7 +812,7 @@
             <div class="categories__list"><b>{{ item.name }}: </b>
                 <ul class="menu--vertical">
                     {% for i in item.children.all %}
-                        <li class="menu-item"><a href="shop-categories.html">{{ i.name }}</a></li>
+                    <li class="menu-item"><a href="shop-categories.html">{{ i.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

@@ -33,11 +33,13 @@
                                     {% for i in item.items.all %}
                                     <div class="shopping-cart-row">
                                         <div class="cart-product">
-                                            <div class="ps-product--mini-cart"><a href="/product/detail/{{ i.product.id }}"><img
+                                            <div class="ps-product--mini-cart"><a
+                                                    href="/product/detail/{{ i.product.id }}"><img
                                                     class="ps-product__thumbnail" src="{{ i.product.main_image.url }}"
                                                     alt="alt"/></a>
                                                 <div class="ps-product__content">
-                                                    <h5><a class="ps-product__name" href="">{{ i.product.name }}</a></h5>
+                                                    <h5><a class="ps-product__name" href="">{{ i.product.name }}</a>
+                                                    </h5>
                                                     <p class="ps-product__unit">{{ i.quantity }}</p>
                                                     <p class="ps-product__meta">Price: <span class="ps-product__price">${{ i.product.price }}</span>
                                                     </p>
@@ -82,9 +84,9 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="shopping-cart__step"><a class="clear-item" href="javascript:void(0);">Clear all
+                            <div class="shopping-cart__step"><a class="clear-item" href="/carts/items/delete">Clear all
                                 items</a><a class="button right" href="javascript:void(0);"><i class="icon-sync"> </i>Update
-                                Cart</a><a class="button left" href="shop-view-grid.html"><i
+                                Cart</a><a class="button left" href="/"><i
                                     class="icon-arrow-left"></i>Continue Shopping</a></div>
                             <div class="row">
                                 <div class="col-12 col-lg-6">
@@ -121,11 +123,12 @@
                     <div class="col-12 col-lg-4">
                         <div class="shopping-cart__right">
                             <div class="shopping-cart__total">
+                                {{ cart }}
                                 <p class="shopping-cart__subtotal"><span>Subtotal</span><span
-                                        class="price">$22.79</span></p>
+                                        class="price">${{cart.total_sum}}</span></p>
                                 <p class="shopping-cart__shipping">Shipping<br><span>FREE SHIPPING</span><br>Estimate
                                     for <b>United Kingdom</b></p>
-                                <p class="shopping-cart__subtotal"><span><b>TOTAL</b></span><span class="price-total">$22.79</span>
+                                <p class="shopping-cart__subtotal"><span><b>TOTAL</b></span><span class="price-total">${{cart.total_sum}}</span>
                                 </p>
                             </div>
                             <a class="btn shopping-cart__checkout" href="checkout.html">Proceed to Checkout</a>

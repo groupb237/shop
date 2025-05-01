@@ -14,8 +14,13 @@ product = [
 
 cart = [
     path("carts/list", views.list_cart),
+    path("carts/items/delete", views.delete_all_items),
     path("carts/create/<int:product_id>", views.create_cart),
     path("carts/items/delete/<int:item_id>", views.delete_cart_item),
+]
+
+checkout = [
+    path("checkout/list", views.checkout_list)
 ]
 
 urlpatterns = [
@@ -23,4 +28,4 @@ urlpatterns = [
     path("category/<int:category_id>", views.category_list),
 ]
 
-urlpatterns += wishlist + product + cart
+urlpatterns += wishlist + product + cart + checkout

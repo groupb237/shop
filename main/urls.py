@@ -20,7 +20,7 @@ cart = [
 ]
 
 checkout = [
-    path("checkout/list", views.checkout_list)
+    path("checkout/list", views.create_order)
 ]
 
 urlpatterns = [

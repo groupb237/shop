@@ -124,5 +124,50 @@ def delete_all_items(request):
     return redirect("/carts/list")
 
 
-def checkout_list(request):
-    return render(request, template_name="checkout.html")
+def create_order(request):
+    cart = models.Cart.objects.filter(user=request.user, is_active=True).first()
+    if request.user.is_authenticated:
+        if request.POST:
+            f_name = request.POST.get("f_name")
+            l_name = request.POST.get("l_name")
+            m_name = request.POST.get("m_name")
+            country = request.POST.get("country")
+            street_address = request.POST.get("street_address")
+            zip_code = request.POST.get("zip_code")
+            city = request.POST.get("city")
+            phone = request.POST.get("phone")
+            email = request.POST.get("email")
+            order_notes = request.POST.get("order_notes")
+            payment = request.POST.get("payment")
+            agree = request.POST.get("agree")
+            if agree == "agree":
+                agree = True
+            else:
+                agree = False
+
+            models.Billing.objects.create(
+                f_name=f_name, l_name=l_name, m_name=m_name,
+                country=country, street_address=street_address, zip_code=zip_code,
+                city=city, phone=phone, email=email, other_notes=order_notes, payment=payment, agree=agree
+            )
+
+            order = models.Order.objects.create(client=request.user, total_sum=0)
+
+            total_sum = 0
+            for item in cart.items.all():
+                total_sum += item.sum
+                models.OrderItem.objects.create(
+                    order=order,
+                    product=item.product,
+                    quantity=item.quantity,
+                    price=item.price,
+                    sum=item.sum
+                )
+            order.total_sum = total_sum
+            order.save()
+
+            cart.is_active = False
+            cart.save()
+
+            return redirect("/")
+    return render(request, template_name="checkout.html", context={"cart": cart})
